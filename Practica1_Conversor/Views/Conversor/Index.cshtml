@@ -1,0 +1,48 @@
+﻿@model Practica1_Conversor.Models.Conversor
+
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a asp-controller="Home" asp-action="Index">Home</a></li>
+        <li class="breadcrumb-item active">Conversión</li>
+    </ol>
+</nav>
+
+<div class="container">
+    <h1>Conversor de Unidades</h1>
+
+    <form method="post">
+        <div class="form-group">
+            <label>Valor</label>
+            <input type="number" step="any" asp-for="Valor" class="form-control" placeholder="Ingrese el valor a convertir" required />
+        </div>
+
+        <div class="form-group">
+            <label>Unidad de origen</label>
+            <select asp-for="UnidadOrigen" class="form-control" required>
+                @foreach (var unidad in Model.Unidades)
+                {
+                    <option value="@unidad">@unidad</option>
+                }
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label>Unidad de destino</label>
+            <select asp-for="UnidadDestino" class="form-control" required>
+                @foreach (var unidad in Model.Unidades)
+                {
+                    <option value="@unidad">@unidad</option>
+                }
+            </select>
+        </div>
+
+        <button type="submit" class="btn btn-primary mt-3">Convertir</button>
+    </form>
+
+    @if (Model.Resultado != 0 || Model.UnidadOrigen == Model.UnidadDestino)
+    {
+        <div class="alert alert-success mt-4">
+            <strong>Resultado:</strong> @Model.Resultado @Model.UnidadDestino
+        </div>
+    }
+</div>
